@@ -1,0 +1,39 @@
+{
+  "name": "Dev",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    // Add extra tools if you need them later, e.g. gh, docker-in-docker, etc.
+    // "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "updateRemoteUserUID": true,
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "ms-vscode.vscode-typescript-next",
+        "dbaeumer.vscode-eslint",
+        "github.vscode-github-actions",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "files.exclude": { "**/__pycache__": true, "**/.pytest_cache": true }
+      }
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/postCreate.sh",
+  "remoteEnv": {
+    // Lets your code read .env values locally without committing secrets
+    "PIP_DISABLE_PIP_VERSION_CHECK": "1"
+  },
+  "containerEnv": {
+    "PYTHONUNBUFFERED": "1"
+  },
+  "mounts": [
+    // Speeds up node installs across rebuilds
+    "type=volume,src=devcontainer-npm-cache,dst=/home/vscode/.npm"
+  ]
+}
